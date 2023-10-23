@@ -1,0 +1,6 @@
+framework module ExplorerWebView {
+  umbrella header "ExplorerWebView-umbrella.h"
+
+  export *
+  module * { export * }
+}
