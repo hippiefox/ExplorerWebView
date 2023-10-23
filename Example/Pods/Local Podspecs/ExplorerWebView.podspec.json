@@ -2,8 +2,8 @@
   "name": "ExplorerWebView",
   "version": "0.1.0",
   "summary": "A short description of ExplorerWebView.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/HippieFox/ExplorerWebView",
+  "description": "description",
+  "homepage": "https://github.com",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,7 +12,7 @@
     "HippieFox": "foxhippie5@gmail.com"
   },
   "source": {
-    "git": "https://github.com/HippieFox/ExplorerWebView.git",
+    "git": "git@github.com:hippiefox/ExplorerWebView.git",
     "tag": "0.1.0"
   },
   "platforms": {
