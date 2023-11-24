@@ -22,7 +22,7 @@ open class EPLWebViewController: UIViewController {
     public var originURL: URL!
 
     /// 进度条加载颜色
-    open var progressTintColor: UIColor = .blue {
+    open var progressTintColor: UIColor = .systemBlue {
         didSet {
             progressView.tintColor = progressTintColor
         }
@@ -67,34 +67,43 @@ open class EPLWebViewController: UIViewController {
 
     override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == SomeKeyPath.estimatedProgress.rawValue {
-            progressView.alpha = 1.0
-            progressView.setProgress(Float(webView.estimatedProgress), animated: true)
-            if webView.estimatedProgress >= 1.0 {
-                UIView.animate(withDuration: 0.2, delay: 0.1, options: UIView.AnimationOptions.curveLinear, animations: {
-                    self.progressView.alpha = 0
-                }) { _ in
-                    self.progressView.setProgress(0.0, animated: false)
-                }
-            }
+            webViewDidUpdate(progress: webView.estimatedProgress)
         }
         if keyPath == SomeKeyPath.title.rawValue {
-            title = webView.title
+            webViewDidUpdate(title: webView.title)
+        }
+    }
+
+    open func webViewDidUpdate(title: String?) {
+        navigationItem.title = title
+    }
+
+    open func webViewDidUpdate(progress: Double) {
+        progressView.alpha = 1.0
+        progressView.setProgress(Float(progress), animated: true)
+        if webView.estimatedProgress >= 1.0 {
+            UIView.animate(withDuration: 0.2, delay: 0.1, options: UIView.AnimationOptions.curveLinear, animations: {
+                self.progressView.alpha = 0
+            }) { _ in
+                self.progressView.setProgress(0.0, animated: false)
+            }
         }
     }
 
     deinit {
-        webView.stopLoading()
-
-        SomeKeyPath.allCases.forEach {
-            webView.removeObserver(self, forKeyPath: $0.rawValue)
+        if isViewLoaded {
+            webView.stopLoading()
+            SomeKeyPath.allCases.forEach {
+                webView.removeObserver(self, forKeyPath: $0.rawValue)
+            }
         }
-
         print("------>\(self.classForCoder.description()) deinit")
     }
 }
 
 extension EPLWebViewController {
     @objc open func configUI() {
+        progressView.alpha = 0
         view.addSubview(progressView)
         progressView.snp.makeConstraints {
             $0.left.equalTo(view.safeAreaLayoutGuide.snp.left)

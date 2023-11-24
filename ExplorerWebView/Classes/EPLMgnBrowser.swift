@@ -16,7 +16,7 @@ open class EPLMgnBrowser: EPLWebViewController, WKNavigationDelegate {
     }
 
     open func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        guard navigationAction.targetFrame == nil else {
+        guard navigationAction.targetFrame != nil else {
             webView.load(navigationAction.request)
             decisionHandler(.allow)
             return
