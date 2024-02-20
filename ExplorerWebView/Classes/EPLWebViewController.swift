@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import SnapKit
 import UIKit
 import WebKit
+import SnapKit
 
 public extension EPLWebViewController {
     enum SomeKeyPath: String, CaseIterable {
