@@ -59,6 +59,7 @@ open class EPLMgnBrowser: EPLWebViewController, WKNavigationDelegate {
            appscheme == targetScheme {
             hdlapp(targetURLString)
         }
+        decisionHandler(.allow)
     }
 
     open func hdlmgn(_ urlString: String) {
